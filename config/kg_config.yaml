@@ -1,0 +1,58 @@
+# 知识图谱配置
+
+# 数据库类型
+type: "neo4j" # neo4j/in_memory
+
+# Neo4j配置
+neo4j:
+  host: "localhost"
+  port: 7687
+  username: "neo4j"
+  password: "${NEO4J_PASSWORD}"
+  database: "neo4j"
+  max_connection_lifetime: 3600
+  max_connection_pool_size: 50
+  connection_timeout: 30
+  encrypted: false
+
+# 图谱结构配置
+schema:
+  # 实体类型
+  entity_types:
+    - Disease
+    - Symptom
+    - Drug
+    - Treatment
+    - Test
+
+  # 关系类型
+  relationship_types:
+    - HAS_SYMPTOM
+    - TREATED_BY
+    - CAUSES
+    - PREVENTS
+    - DIAGNOSED_BY
+    - INTERACTS_WITH
+
+# 查询配置
+query:
+  max_depth: 3
+  max_results: 100
+  timeout: 30
+  use_cache: true
+  cache_ttl: 1800
+
+# 图谱构建配置
+build:
+  source_path: "./data/kg_sources"
+  entity_extraction: true
+  relationship_extraction: true
+  deduplication: true
+  validation: true
+
+# 更新配置
+update:
+  auto_update: false
+  update_schedule: "0 2 * * *" # cron表达式
+  incremental: true
+  backup_before_update: true

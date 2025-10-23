@@ -1,0 +1,46 @@
+# 处理链配置
+
+# 诊断链配置
+diagnosis_chain:
+  retrieval_k: 5
+  score_threshold: 0.7
+  max_candidates: 5
+  confidence_threshold: 0.5
+  enable_differential: true
+  enable_risk_assessment: true
+
+# 药品推荐链配置
+drug_recommendation_chain:
+  max_primary_drugs: 3
+  max_adjuvant_drugs: 3
+  max_otc_drugs: 2
+  safety_threshold: 0.7
+  check_interactions: true
+  check_allergies: true
+  check_contraindications: true
+
+# 治疗方案链配置
+treatment_plan_chain:
+  include_lifestyle: true
+  include_follow_up: true
+  include_cost_estimate: false
+  max_phases: 5
+  detail_level: "comprehensive" # brief/standard/comprehensive
+
+# 问答链配置
+qa_chain:
+  retrieval_k: 5
+  score_threshold: 0.6
+  max_context_length: 2000
+  enable_memory: true
+  memory_window: 5
+  include_sources: true
+  generate_related_questions: true
+
+# 通用配置
+common:
+  verbose: false
+  log_level: "INFO"
+  retry_on_error: true
+  max_retries: 3
+  timeout: 60

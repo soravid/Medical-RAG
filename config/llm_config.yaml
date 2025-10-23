@@ -1,0 +1,59 @@
+# LLM模型配置
+
+# 提供商配置
+provider: "openai" # openai/azure/anthropic/huggingface/local
+
+# OpenAI配置
+openai:
+  model_name: "gpt-3.5-turbo"
+  api_key: "${OPENAI_API_KEY}" # 从环境变量读取
+  api_base: null
+  temperature: 0.7
+  max_tokens: 2000
+  top_p: 1.0
+  frequency_penalty: 0.0
+  presence_penalty: 0.0
+  timeout: 60
+  max_retries: 3
+
+# Azure OpenAI配置
+azure:
+  deployment_name: "gpt-35-turbo"
+  api_key: "${AZURE_OPENAI_API_KEY}"
+  api_base: "${AZURE_OPENAI_ENDPOINT}"
+  api_version: "2023-05-15"
+  temperature: 0.7
+  max_tokens: 2000
+
+# 本地模型配置
+local:
+  model_path: "./models/llama-2-7b"
+  device: "cuda" # cuda/cpu
+  load_in_8bit: false
+  temperature: 0.7
+  max_tokens: 2000
+
+# 提示词配置
+prompts:
+  use_system_message: true
+  system_message: "你是一位专业的医疗顾问，负责提供准确、安全的医疗建议。"
+  max_context_length: 4000
+  truncation_strategy: "middle" # start/middle/end
+
+# 响应配置
+response:
+  stream: false
+  include_usage: true
+  format: "text" # text/json
+
+# 安全配置
+safety:
+  content_filter: true
+  medical_disclaimer: true
+  disclaimer_text: "以上建议仅供参考，具体诊疗请咨询专业医生。"
+
+# 缓存配置
+cache:
+  enabled: true
+  ttl: 3600 # 秒
+  max_size: 1000

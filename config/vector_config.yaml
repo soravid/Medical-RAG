@@ -1,0 +1,73 @@
+# 向量存储配置
+
+# 向量数据库类型
+type: "chromadb" # chromadb/faiss/pinecone/milvus
+
+# ChromaDB配置
+chromadb:
+  host: "localhost"
+  port: 8000
+  collection_name: "medical_documents"
+  persist_directory: "./data/vector_db"
+  distance_metric: "cosine" # cosine/l2/ip
+
+# FAISS配置
+faiss:
+  index_type: "HNSW" # Flat/HNSW/IVF
+  dimension: 768
+  index_path: "./data/faiss_index"
+  normalize_l2: true
+
+# Pinecone配置
+pinecone:
+  api_key: "${PINECONE_API_KEY}"
+  environment: "us-west1-gcp"
+  index_name: "medical-index"
+  dimension: 768
+  metric: "cosine"
+
+# 嵌入模型配置
+embedding:
+  provider: "openai" # openai/huggingface/local
+  model_name: "text-embedding-ada-002"
+  api_key: "${OPENAI_API_KEY}"
+  dimension: 1536
+  batch_size: 100
+  max_retries: 3
+  normalize: true
+
+# HuggingFace嵌入配置
+huggingface_embedding:
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+  device: "cpu"
+  dimension: 384
+  normalize_embeddings: true
+# 检索配置
+retrieval:
+  default_top_k: 5
+  score_threshold: 0.7
+  max_distance: 0.5
+  rerank: true
+  rerank_top_k: 10
+
+# 文档处理配置
+document:
+  chunk_size: 512
+  chunk_overlap: 50
+  chunking_strategy: "fixed_size" # fixed_size/sentence/paragraph/sliding_window
+  separator: "\n\n"
+  preserve_metadata: true
+
+# 索引配置
+index:
+  auto_update: true
+  update_interval: 3600 # 秒
+  backup_enabled: true
+  backup_path: "./data/backups"
+
+# 性能配置
+performance:
+  cache_enabled: true
+  cache_size: 1000
+  parallel_processing: true
+  num_workers: 4
